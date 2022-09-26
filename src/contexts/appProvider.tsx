@@ -35,18 +35,25 @@ export const AppProvider = ({ children }: props) => {
   localStorage.setItem("appState", JSON.stringify(appState));
 
   const signIn = async (username: string, password: string): Promise<void> => {
-    const userInfo = await new ApiClient().authLogin(username, password);
-
-    if (userInfo !== null) {
-      dispatch({
-        type: "signin",
-        payload: userInfo,
-      });
-    } else {
+    if (username.length === 0 || password.length === 0) {
       dispatch({
         type: "signerror",
-        payload: { msg: "The credentials isn't valid." },
+        payload: { msg: "Username and Password is required." },
       });
+    } else {
+      const userInfo = await new ApiClient().authLogin(username, password);
+
+      if (userInfo !== null) {
+        dispatch({
+          type: "signin",
+          payload: userInfo,
+        });
+      } else {
+        dispatch({
+          type: "signerror",
+          payload: { msg: "The credentials isn't valid." },
+        });
+      }
     }
   };
 

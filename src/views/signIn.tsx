@@ -19,24 +19,47 @@ const SignIn = () => {
   }, [appState.isSignIn]);
 
   return (
-    <>
-      <h3>Login</h3>
+    <div className="login container">
+      <div className="columns">
+        <div className="column col-4 col-sm-2"></div>
+        <div className="column col-4 col-sm-8">
+          <h3>Login</h3>
 
-      {appState.isError && <p className="errorMsg">{appState.msg}</p>}
+          <div className="form-group">
+            {appState.isError && (
+              <span className="label label-rounded label-error">
+                {appState.msg}
+              </span>
+            )}
+            <label className="form-label" htmlFor="txtUsername">
+              User Name
+            </label>
+            <input
+              className="form-input"
+              placeholder="User Name / Email"
+              id="txtUsername"
+              type="text"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <label className="form-label" htmlFor="txtPassword">
+              Password
+            </label>
+            <input
+              className="form-input"
+              placeholder="Password"
+              id="txtPassword"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-      <input
-        id="txtUsername"
-        type="text"
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        id="txtPassword"
-        type="text"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <input type="button" value="Entrar" onClick={submit} />
-    </>
+          <button className="btn btn-primary" onClick={submit}>
+            Entrar
+          </button>
+        </div>
+        <div className="column col-4 col-sm-2"></div>
+      </div>
+    </div>
   );
 };
 
