@@ -1,8 +1,8 @@
 import { useReducer } from "react";
-import { IAppState, userInitialState } from "../interfaces/index";
+import { IAppState, IUserModel, userInitialState } from "../interfaces/index";
 import ApiClient from "../services";
 import { AppContext } from "./appContext";
-import { AppReducer } from "./authReducer";
+import { AppReducer } from "./appReducer";
 
 interface props {
   children: JSX.Element | JSX.Element[];
@@ -57,8 +57,16 @@ export const AppProvider = ({ children }: props) => {
     });
   };
 
+  const retrieveUsers = async (): Promise<IUserModel[]> => {
+    if (!appState.user) {
+      return [];
+    }
+
+    return (await new ApiClient().getUsers(appState.user.token)) ?? [];
+  };
+
   return (
-    <AppContext.Provider value={{ appState, signIn, signOut }}>
+    <AppContext.Provider value={{ appState, signIn, signOut, retrieveUsers }}>
       {children}
     </AppContext.Provider>
   );

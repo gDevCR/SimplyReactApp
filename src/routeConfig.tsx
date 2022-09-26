@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import useAuth from "./hooks/useAuth";
+import useAppState from "./hooks/useAppState";
 import SignIn from "./views/signIn";
 import Dashboard from "./views/dashboard";
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const Private = ({ Item }: any) => {
-  const { appState } = useAuth();
+  const { appState } = useAppState();
 
   return appState.isSignIn ? <Item /> : <SignIn />;
 };

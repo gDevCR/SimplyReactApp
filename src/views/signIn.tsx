@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import useAppState from "../hooks/useAppState";
 
 const SignIn = () => {
-  const { authState, signIn } = useAuth();
   const navigate = useNavigate();
+  const { appState, signIn } = useAppState();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const submit = () => {
-    signIn(username, password);
+  const submit = async () => {
+    await signIn(username, password);
   };
 
   useEffect(() => {
-    if (authState.isSignIn) {
+    if (appState.isSignIn) {
       navigate("/dashboard");
     }
-  }, [authState.isSignIn]);
+  }, [appState.isSignIn]);
 
   return (
     <>
       <h3>Login</h3>
 
-      {authState.isError && <p className="errorMsg">{authState.msg}</p>}
+      {appState.isError && <p className="errorMsg">{appState.msg}</p>}
 
       <input
         id="txtUsername"

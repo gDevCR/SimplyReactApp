@@ -12,7 +12,7 @@ export default class ApiClient {
   ): Promise<IUserInfo | null> {
     const response = await fetch(API_BASE + "/login");
     // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-    const data: any = response.json();
+    const data: any = await response.json();
 
     if (Object.keys(data).length) {
       // This api mockup don't use auth with password
@@ -37,10 +37,10 @@ export default class ApiClient {
       },
     };
     const response = await fetch(API_BASE + "/users", options);
-
+    const dataJSON = await response.json();
     // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     const data: IUserModel[] = <IUserModel[]>(
-      JSON.parse(JSON.stringify(response.json()))
+      JSON.parse(JSON.stringify(dataJSON.users))
     );
 
     if (Array.from(data).length) {
