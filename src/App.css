@@ -41,6 +41,10 @@
   margin-top: 6rem;
 }
 
+.login button {
+  width: 100%;
+}
+
 .navbar {
   margin: 2rem 4rem;
 }

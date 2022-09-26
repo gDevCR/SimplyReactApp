@@ -54,7 +54,7 @@ const SignIn = () => {
           </div>
 
           <button className="btn btn-primary" onClick={submit}>
-            Entrar
+            Login
           </button>
         </div>
         <div className="column col-4 col-sm-2"></div>
